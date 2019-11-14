@@ -3,6 +3,9 @@ const app = express();
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 
+//Import Routes
+const authRoute = require('./routes/auth')
+
 dotenv.config();
 
 //Connect DB
@@ -12,10 +15,9 @@ mongoose.connect(
     () => console.log('connected to DB')
 );
 
-//Import Routes
-const authRoute = require('./routes/auth')
-
+//Middlewares
+app.use(express.json());
 //Route Middlewares
 app.use('/api/user', authRoute);
 
-app.listen(3000, () => console.log('Server Started') );
+app.listen(3000, () => console.log('Server Started at '+Date.now()) );
